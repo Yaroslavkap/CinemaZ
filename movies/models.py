@@ -7,7 +7,7 @@ from django.urls import reverse
 class Category(models.Model):
     """Категории"""
     name = models.CharField("Категория", max_length=150)
-    description = models.TextField("Описание")
+    #description = models.TextField("Описание")
     url = models.SlugField(max_length=160, unique=True)
 
     def __str__(self):
@@ -35,13 +35,13 @@ class Movie(models.Model):
     """Фильм"""
     title = models.CharField("Название", max_length=100)
     description = models.TextField("Описание")
+    kinopoisk_id = models.IntegerField("Кинопоиск", default=0)
     poster = models.ImageField("Постер", upload_to="movies/")
     year = models.PositiveSmallIntegerField("Дата выхода", default=2019)
     country = models.CharField("Страна", max_length=30)
     directors = models.CharField("Режиссер", max_length=50)
     actors = models.TextField("Актеры")
     genres = models.ManyToManyField(Genre, verbose_name="жанры")
-    world_premiere = models.DateField("Примьера в мире", default=date.today)
     category = models.ForeignKey(
         Category, verbose_name="Категория", on_delete=models.SET_NULL, null=True
     )
