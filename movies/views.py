@@ -5,13 +5,19 @@ from django.views.generic.base import View
 from .models import Movie
 
 
-class MoviesView(ListView):
-    """Список фильмов"""
-    model = Movie
-    queryset = Movie.objects.filter(draft=False)
+# class MoviesView(ListView):
+#     """Список фильмов"""
+#     model = Movie
+#     queryset = Movie.objects.filter(draft=False)
 
 
-class MovieDetailView(DetailView):
-    """Полное описание фильма"""
-    model = Movie
-    slug_field = "url"
+# class MovieDetailView(DetailView):
+#     """Полное описание фильма"""
+#     model = Movie
+#     slug_field = "url"
+
+class MoviesView(View):
+
+    def get(self, request):
+        movies = Movie.objects.all()
+        return render(request, "movies/movie_list.html", {"movie_list": movies})
